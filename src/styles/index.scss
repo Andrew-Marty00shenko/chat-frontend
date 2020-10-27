@@ -1,0 +1,29 @@
+@import "~antd/dist/antd.css";
+@import 'layouts/chat';
+
+body,.wrapper, html, #root{
+    height:100% ;
+    color: #202002;
+    background-color: #f4f7f4;
+}
+
+*{
+    outline: none;
+}
+
+
+.ant-btn-circle{
+    border: 0;
+    box-shadow: none;
+    opacity: 0.4;
+    color: #202020 !important;
+
+    &:hover{
+        opacity: 1;
+    }
+
+    &:after{
+        display: none;
+    }
+}
+
