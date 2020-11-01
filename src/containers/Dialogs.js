@@ -23,6 +23,7 @@ const Dialogs = ({ fetchDialogs, items, userId, setCurrentDialogId }) => {
     }, [items.length, fetchDialogs, items])
 
     return <BaseDialogs
+        //asdasdsa
         userId={userId}
         items={filtred}
         onSearch={onChangeInput}
