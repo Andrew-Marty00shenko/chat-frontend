@@ -21,4 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+<<<<<<< Updated upstream
 debug.log
+=======
+*.log
+>>>>>>> Stashed changes
