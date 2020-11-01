@@ -5,12 +5,16 @@
 
     &__smile-btn{
         margin-right: 15px;
-        opacity: 0.5;
-
         span.anticon{
             margin-top: 11px;
             background-color: #fff;
         }
+    }
+
+    &__emoji-picker{
+        position: absolute;
+        bottom: 50px;
+        z-index: 1;
     }
 
     &__actions{
@@ -19,6 +23,17 @@
         width: 80px;
         margin-left: 15px;
         align-items: center;
+
+        &-upload-btn{
+            input{
+                cursor: pointer;
+            }
+            &:hover{
+                button{
+                    opacity: 1;
+                }
+            }
+        }
     }
 
     .ant-btn-circle{
@@ -28,8 +43,6 @@
             transition: opacity 0.15s ease-in-out;
         }
     }
-
-   
 
     input{
         &:focus{

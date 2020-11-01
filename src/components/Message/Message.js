@@ -6,7 +6,8 @@ import IconRead from '../IconRead/IconRead';
 import waveSvg from '../../assets/img/wave.svg';
 import playSvg from '../../assets/img/play.svg'
 import pauseSvg from '../../assets/img/pause.svg';
-import convertCurrentTime from '../../utils/helpers/convertCurrentTime'
+import convertCurrentTime from '../../utils/helpers/convertCurrentTime';
+import Avatar from '../Avatar/Avatar';
 
 const MessageAudio = ({ audio }) => {
 
@@ -77,7 +78,7 @@ const Message = ({ avatar, text, date, audio, user, isMe, isReaded, attachments,
             <div className="message__content">
                 <IconRead isMe={isMe} isReaded={isReaded} />
                 <div className="message__avatar">
-                    <img src={avatar} alt={`Avatar ${user.fullName}`} />
+                    <Avatar user={user} />
                 </div>
                 <div className="message__info">
                     {(audio || text || isTyping) && <div className="message__bubble">

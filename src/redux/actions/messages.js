@@ -5,11 +5,21 @@ const actions = {
         type: 'MESSAGES:SET_ITEMS',
         payload: items
     }),
+    setIsLoading: bool => ({
+        type: 'MESSAGES:SET_IS_LOADING',
+        payload: bool
+    }),
     fetchMessages: (dialogId) => {
         return dispatch => {
-            messagesApi.getAllByDialogsId(dialogId).then(({ data }) => {
-                dispatch(actions.setMessages(data))
-            });
+            dispatch(actions.setIsLoading(true));
+            messagesApi
+                .getAllByDialogsId(dialogId)
+                .then(({ data }) => {
+                    dispatch(actions.setMessages(data))
+                })
+                .catch(() => {
+                    dispatch(actions.setIsLoading(false));
+                })
         }
     }
 }
