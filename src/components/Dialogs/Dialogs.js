@@ -4,7 +4,7 @@ import DialogItem from '../DialogItem/DialogItem';
 import orderBy from 'lodash/orderBy';
 import { Input, Empty } from 'antd';
 
-const Dialogs = ({ items, userId, onSearch, inputValue, onSelectDialog }) => {
+const Dialogs = ({ items, userId, onSearch, inputValue, currentDialogId, onSelectDialog }) => {
     return (
         <div className="dialogs">
             <div className="dialogs__search">
@@ -19,7 +19,8 @@ const Dialogs = ({ items, userId, onSearch, inputValue, onSelectDialog }) => {
                     onSelect={onSelectDialog}
                     key={item._id}
                     message={item}
-                    isMe={item.user._id === userId}
+                    currentDialogId={currentDialogId}
+                    isMe={item.author._id === userId}
                     {...item}
                 />)) : (
                     <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Ничего не найдено" />

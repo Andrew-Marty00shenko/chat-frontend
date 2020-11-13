@@ -5,6 +5,7 @@ import { MailOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom'
 import WhiteBlock from '../../../components/WhiteBlock/WhiteBlock';
 
+
 import validateField from '../../../utils/helpers/validateField'
 
 const LoginForm = ({
@@ -14,7 +15,6 @@ const LoginForm = ({
     handleChange,
     handleBlur,
     handleSubmit,
-    isValid,
     isSubmitting
 }) => {
     return (
@@ -56,7 +56,7 @@ const LoginForm = ({
                         />
                     </Form.Item>
                     <Form.Item>
-                        <Button onClick={handleSubmit} size="large" type="primary" htmlType="submit" className="login-form-button">
+                        <Button disabled={isSubmitting} onClick={handleSubmit} size="large" type="primary" htmlType="submit" className="login-form-button">
                             Войти в аккаунт
                             </Button>
                     </Form.Item>

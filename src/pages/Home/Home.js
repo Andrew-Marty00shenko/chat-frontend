@@ -1,6 +1,6 @@
 import React from 'react';
 import './Home.scss';
-import { Input, Button } from 'antd';
+import { Button } from 'antd';
 import { TeamOutlined, FormOutlined, EllipsisOutlined } from '@ant-design/icons';
 import Status from '../../components/Status/Status';
 import ChatInput from '../../components/ChatInput/ChatInput';
