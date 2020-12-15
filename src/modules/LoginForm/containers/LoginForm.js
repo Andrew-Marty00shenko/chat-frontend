@@ -2,7 +2,7 @@ import LoginForm from '../components/LoginForm';
 import { withFormik } from 'formik';
 import validateFunc from '../../../utils/validate';
 import userActions from '../../../redux/actions/user';
-import store from '../../../redux/store'
+import store from '../../../redux/store';
 
 const LoginFormContainer = withFormik({
     mapPropsToValues: () => ({
@@ -21,7 +21,9 @@ const LoginFormContainer = withFormik({
                     setTimeout(() => props.history.push('/'), 500);
                 }
                 setSubmitting(false);
-            });
+            }).catch(() => {
+                setSubmitting(false);
+            })
     },
     displayName: 'LoginForm',
 })(LoginForm);

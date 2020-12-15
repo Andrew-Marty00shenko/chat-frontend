@@ -5,7 +5,6 @@ import { MailOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom'
 import WhiteBlock from '../../../components/WhiteBlock/WhiteBlock';
 
-
 import validateField from '../../../utils/helpers/validateField'
 
 const LoginForm = ({
@@ -60,7 +59,7 @@ const LoginForm = ({
                             Войти в аккаунт
                             </Button>
                     </Form.Item>
-                    <Link to="/register" className="auth__register-link" > Зарегистрироваться</Link>
+                    <Link to="/signup" className="auth__register-link" > Зарегистрироваться</Link>
                 </Form>
             </WhiteBlock>
         </div>

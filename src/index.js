@@ -6,6 +6,9 @@ import store from './redux/store';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import 'emoji-mart/css/emoji-mart.css';
+import { userActions } from './redux/actions';
+
+store.dispatch(userActions.fetchUserData());
 
 ReactDOM.render(
   <BrowserRouter>

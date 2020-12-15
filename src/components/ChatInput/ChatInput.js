@@ -5,13 +5,20 @@ import { SmileOutlined, CameraOutlined, AudioOutlined, SendOutlined } from '@ant
 import { UploadField } from "@navjobs/upload";
 import { Picker } from "emoji-mart";
 
-const ChatInput = (props) => {
-    const [value, setValue] = useState("");
+const ChatInput = ({ currentDialogId, onSendMessage }) => {
+    const [value, setValue] = useState('');
     const [emojiPickerVisible, setShowEmojiPicker] = useState(false);
 
     const toggleEmojiPicker = () => {
         setShowEmojiPicker(!emojiPickerVisible);
-    }
+    };
+
+    const handleSendMessage = e => {
+        if (e.keyCode === 13) {
+            onSendMessage(value, currentDialogId);
+            setValue('');
+        }
+    };
 
     return <div className="chat-input">
         <div className="chat-input__smile-btn">
@@ -24,6 +31,8 @@ const ChatInput = (props) => {
         </div>
         <Input
             onChange={e => setValue(e.target.value)}
+            value={value}
+            onKeyUp={handleSendMessage}
             size="large"
             placeholder="Введите текст сообщения..."
         />

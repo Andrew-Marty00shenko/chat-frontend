@@ -14,6 +14,16 @@ export default ({ isAuth, values, errors }) => {
                 errors.password = 'Слишком легкий пароль'
             }
         },
+        password_2: (value) => {
+            if (value !== values.password) {
+                errors.password_2 = 'Пароли не совпадают';
+            }
+        },
+        fullname: (value) => {
+            if (!value) {
+                errors.fullname = 'Укажите своё имя и фамилию';
+            }
+        },
     }
 
     Object.keys(values).forEach(

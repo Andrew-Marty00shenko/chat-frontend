@@ -6,7 +6,7 @@ const actions = {
         payload: items
     }),
     setCurrentDialogId: id => ({
-        type: 'DIALOGS:SET_CURRENT_DIALOG_ID',
+        type: "DIALOGS:SET_CURRENT_DIALOG_ID",
         payload: id
     }),
     fetchDialogs: () => {

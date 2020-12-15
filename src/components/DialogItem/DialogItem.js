@@ -4,9 +4,9 @@ import classnames from 'classnames';
 import format from 'date-fns/format';
 import isToday from 'date-fns/isToday';
 import Avatar from '../Avatar/Avatar';
+import { Link } from 'react-router-dom';
 
-
-const getMessageTime = created_at => {
+const getMessageTime = (created_at) => {
     if (isToday(new Date(created_at))) {
         return format(new Date(created_at), "HH:mm")
     } else {
@@ -14,40 +14,41 @@ const getMessageTime = created_at => {
     }
 }
 
-const DialogItem = ({ _id, user, unread, isMe, created_at, text, onSelect, currentDialogId }) => {
+const DialogItem = ({ _id, isMe, currentDialogId, lastMessage, onSelect }) => {
     return (
-        <div className={classnames("dialogs__item",
-            {
-                "dialogs__item--online": user.isOnline,
-                "dialogs__item--selected": currentDialogId === _id
-            })}
-            onClick={onSelect.bind(this, _id)}
-        >
-            <div className="dialogs__item-avatar">
-                {/* <img src={user.avatar} alt={`${user.fullname} avatar`} /> */}
-                <Avatar user={user} />
-            </div>
-            <div className="dialogs__item-info">
-                <div className="dialogs__item-info-top">
-                    <b>{user.fullname}</b>
-                    <span>
-                        {getMessageTime(created_at)}
-                    </span>
+        <Link to={`/dialog/${_id}`} onClick={() => console.log(currentDialogId)}>
+            <div className={classnames("dialogs__item",
+                {
+                    "dialogs__item--online": lastMessage.user.isOnline,
+                    "dialogs__item--selected": currentDialogId === _id
+                })}
+                onClick={onSelect.bind(this, _id)}
+            >
+                <div className="dialogs__item-avatar">
+                    <Avatar user={lastMessage.user} />
                 </div>
-                <div className="dialogs__item-info-bottom">
-                    <p>
-                        {text}
-                    </p>
-                    {isMe && <IconRead isMe={true} isReaded={false} />}
-                    {unread > 0 &&
-                        <div div className="dialogs__item-info-bottom-count">
-                            {unread > 99 ? '+99' : unread}
-                        </div>
-                    }
+                <div className="dialogs__item-info">
+                    <div className="dialogs__item-info-top">
+                        <b>{lastMessage.user.fullname}</b>
+                        <span>
+                            {getMessageTime(lastMessage.createdAt)}
+                        </span>
+                    </div>
+                    <div className="dialogs__item-info-bottom">
+                        <p>
+                            {lastMessage.text}
+                        </p>
+                        {isMe && <IconRead isMe={true} isReaded={false} />}
+                        {lastMessage.unread > 0 &&
+                            <div div className="dialogs__item-info-bottom-count">
+                                {lastMessage.unread > 99 ? '+99' : lastMessage.unread}
+                            </div>
+                        }
 
+                    </div>
                 </div>
-            </div>
-        </div >
+            </div >
+        </Link>
     )
 }
 

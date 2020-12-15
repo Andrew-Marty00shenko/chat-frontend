@@ -15,11 +15,11 @@
         }
     }
 
-
     &__item{
         display:flex;
         $self: &;
         margin-bottom: 20px;
+        color: $black;
 
         &:hover{
             background-color: #f3f7ff;
@@ -43,8 +43,6 @@
                 border-radius: 50%;
             }
         }
-
-       
 
         &--online{
             #{$self}-avatar{

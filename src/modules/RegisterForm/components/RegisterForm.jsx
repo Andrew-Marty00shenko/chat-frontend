@@ -1,10 +1,11 @@
 import React from 'react'
 import Button from '../../../components/Button/Button';
-import { Form, Input } from 'antd';
+import { Form } from 'antd';
 import { UserOutlined, LockOutlined, MailOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom'
 import WhiteBlock from '../../../components/WhiteBlock/WhiteBlock';
-import validateField from '../../../utils/helpers/validateField'
+import FormField from '../../../components/FormField/FormField';
+
 
 const RegisterForm = ({
     values,
@@ -16,7 +17,7 @@ const RegisterForm = ({
     isValid,
     isSubmitting
 }) => {
-    const success = true
+    const success = false
     return (
         <div>
             <div className="auth__top">
@@ -24,61 +25,63 @@ const RegisterForm = ({
                 <p>Для входа вам нужно зарегистрироваться</p>
             </div>
             <WhiteBlock>
-                {success ?
+                {!success ?
                     <Form
                         className="login-form"
                         handleSubmit={handleSubmit}
                     >
-                        <Form.Item help={touched.email ? errors.email : ''}
-                            validateStatus={validateField('email', touched, errors)}
-                        >
-                            <Input
-                                size="large"
-                                id="email"
-                                prefix={<MailOutlined className="site-form-item-icon" />}
-                                value={values.email}
-                                placeholder="E-mail"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            />
-                        </Form.Item>
+                        <FormField
+                            handleChange={handleChange}
+                            handleBlur={handleBlur}
+                            touched={touched}
+                            errors={errors}
+                            placeholder="E-Mail"
+                            name="email"
+                            icon={<MailOutlined className="site-form-item-icon" />}
+                            values={values}
+                        />
+
+                        <FormField
+                            handleChange={handleChange}
+                            handleBlur={handleBlur}
+                            touched={touched}
+                            errors={errors}
+                            placeholder="Ваше имя и фамилия"
+                            name="fullname"
+                            icon={<UserOutlined className="site-form-item-icon" />}
+                            values={values}
+                        />
+
+                        <FormField
+                            handleChange={handleChange}
+                            handleBlur={handleBlur}
+                            touched={touched}
+                            errors={errors}
+                            type="password"
+                            placeholder="Пароль"
+                            name="password"
+                            icon={<LockOutlined className="site-form-item-icon" />}
+                            values={values}
+                        />
+
+                        <FormField
+                            handleChange={handleChange}
+                            handleBlur={handleBlur}
+                            touched={touched}
+                            errors={errors}
+                            type="password"
+                            placeholder="Повторите пароль"
+                            name="password_2"
+                            icon={<LockOutlined className="site-form-item-icon" />}
+                            values={values}
+                        />
+
                         <Form.Item>
-                            <Input
-                                prefix={<UserOutlined className="site-form-item-icon" />}
-                                type="user"
-                                placeholder="Ваше имя"
-                                size="large"
-                            />
-                        </Form.Item>
-                        <Form.Item validateStatus={validateField('password', touched, errors)}
-                            help={!touched.password ? '' : errors.password}
-                        >
-                            <Input
-                                prefix={<LockOutlined className="site-form-item-icon" />}
-                                type="password"
-                                placeholder="Пароль"
-                                id="password"
-                                value={values.password}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                size="large"
-                            />
-                        </Form.Item>
-                        <Form.Item validateStatus={validateField('password2', touched, errors)}>
-                            <Input
-                                id="password2"
-                                prefix={<LockOutlined className="site-form-item-icon" />}
-                                type="password2"
-                                placeholder="Повторите пароль"
-                                size="large"
-                            />
-                        </Form.Item>
-                        <Form.Item>
-                            <Button onClick={handleSubmit} size="large" type="primary" htmlType="submit" className="login-form-button">
+                            <Button disabled={isSubmitting} onClick={handleSubmit} size="large" type="primary" htmlType="submit" className="login-form-button">
                                 Зарегистрироваться
                             </Button>
                         </Form.Item>
-                        <Link to="/login" className="auth__register-link" > Войти в аккаунт</Link>
+                        <Link to="/signin" className="auth__register-link" > Войти в аккаунт</Link>
                     </Form> : <div className="auth__success-block">
                         <InfoCircleOutlined type="info-circle" style={{ fontSize: '48px', color: '#08c' }} theme="twoTone" />
                         <h2>Подтвердите свой аккаунт</h2>

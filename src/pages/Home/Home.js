@@ -2,10 +2,10 @@ import React from 'react';
 import './Home.scss';
 import { Button } from 'antd';
 import { TeamOutlined, FormOutlined, EllipsisOutlined } from '@ant-design/icons';
-import Status from '../../components/Status/Status';
-import ChatInput from '../../components/ChatInput/ChatInput';
 import Dialogs from '../../containers/Dialogs';
 import Messages from '../../containers/Messages';
+import ChatInput from '../../containers/ChatInput';
+import Status from '../../containers/Status';
 
 const Home = () => {
     return (
@@ -32,13 +32,7 @@ const Home = () => {
                 <div className="chat__dialog">
                     <div className="chat__dialog-header">
                         <div />
-                        <div className="chat__dialog-header-center">
-                            <b className="chat__dialog-header-username">
-                                Гай Юлий Цезарь
-                            </b>
-                            <Status online />
-                        </div>
-
+                        <Status online />
                         <Button type="link" shape="circle" icon={<EllipsisOutlined style={{ fontSize: '22px' }} />} />
                     </div>
                     <div className="chat__dialog-messages">
