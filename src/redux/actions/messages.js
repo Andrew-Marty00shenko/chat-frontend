@@ -16,13 +16,28 @@ const actions = {
             });
         }
     },
-    fetchSendMessage: (text, dialogId) => dispatch => {
-        messagesApi.send(text, dialogId);
+    fetchSendMessage: (text, dialogId, attachments) => dispatch => {
+        messagesApi.send(text, dialogId, attachments);
     },
     setIsLoading: bool => ({
         type: 'MESSAGES:SET_IS_LOADING',
         payload: bool
     }),
+    removeMessagebyId: id => dispatch => {
+        if (window.confirm('Вы действительно хотите удалить сообщение?')) {
+            messagesApi
+                .removeById(id)
+                .then(({ data }) => {
+                    dispatch(dispatch({
+                        type: 'MESSAGES:REMOVE_MESSAGE',
+                        payload: id
+                    }));
+                })
+                .catch(() => {
+                    dispatch(actions.setIsLoading(false));
+                });
+        }
+    },
     fetchMessages: (dialogId) => {
         return dispatch => {
             dispatch(actions.setIsLoading(true));

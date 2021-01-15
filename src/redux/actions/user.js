@@ -13,7 +13,12 @@ const actions = {
     fetchUserData: () => dispatch => {
         userApi.getMe().then(({ data }) => {
             dispatch(actions.setUserData(data));
-        })
+        }).catch(err => {
+            if (err.response.status === 403) {
+                dispatch(actions.setIsAuth(false));
+                delete window.localStorage.token;
+            }
+        });
     },
     fetchUserLogin: postData => dispatch => {
         return userApi.signin(postData).then(({ data }) => {
@@ -27,7 +32,6 @@ const actions = {
             window.localStorage['token'] = token;
             dispatch(actions.fetchUserData());
             dispatch(actions.setIsAuth(true));
-
             return data;
         }).catch(({ response }) => {
             if (response.status === 403) {

@@ -3,12 +3,13 @@ import BaseStatus from '../components/Status/Status';
 import { connect } from 'react-redux';
 
 const Status = ({ currentDialogId, dialogs, user }) => {
-    console.log(currentDialogId, dialogs)
+
     if (!dialogs.length || !currentDialogId) {
         return null;
     };
 
     const currentDialogObj = dialogs.filter(dialog => dialog._id === currentDialogId)[0];
+
     let partner = {};
 
     if (currentDialogObj.author._id === user._id) {

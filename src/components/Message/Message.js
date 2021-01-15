@@ -8,9 +8,12 @@ import playSvg from '../../assets/img/play.svg'
 import pauseSvg from '../../assets/img/pause.svg';
 import convertCurrentTime from '../../utils/helpers/convertCurrentTime';
 import Avatar from '../Avatar/Avatar';
+import { Popover, Button } from 'antd';
+import { EllipsisOutlined, EyeOutlined } from '@ant-design/icons';
+import reactStringReplace from 'react-string-replace';
+import { Emoji } from "emoji-mart";
 
 const MessageAudio = ({ audio }) => {
-
     const [isPlaying, setIsPlaying] = useState(false);
     const [progress, setProgress] = useState(0);
     const [currentTime, setCurrentTime] = useState(0);
@@ -66,23 +69,48 @@ const MessageAudio = ({ audio }) => {
     </div>
 }
 
-const Message = ({ avatar, text, date, audio, user, isMe, isReaded, attachments, isTyping }) => {
-
+const Message = ({
+    avatar,
+    text,
+    date,
+    audio,
+    user,
+    isMe,
+    readed,
+    attachments,
+    setPreviewImage,
+    isTyping,
+    onRemoveMessage,
+}) => {
     return (
         <div className={classNames('message', {
             'message--isme': isMe,
             'message--is-typing': isTyping,
-            'message--image': attachments && attachments.length === 1,
-            "message--is-audio": audio
+            'message--image': attachments && attachments.length === 1 && !text,
+            "message--is-audio": false
         })}>
             <div className="message__content">
-                <IconRead isMe={isMe} isReaded={isReaded} />
+                <IconRead isMe={isMe} isReaded={readed} />
+                <Popover
+                    content={
+                        <Button onClick={onRemoveMessage}>Удалить сообщение</Button>
+                    }
+                    trigger='click'
+                >
+                    <div className="message__icon-actions">
+                        <Button type="link" shape="circle" icon={<EllipsisOutlined style={{ fontSize: '22px' }} />} />
+                    </div>
+                </Popover>
                 <div className="message__avatar">
                     <Avatar user={user} />
                 </div>
                 <div className="message__info">
-                    {(audio || text || isTyping) && <div className="message__bubble">
-                        {text && <p className="message__text">{text}  </p>}
+                    {text && <div className="message__bubble">
+                        {text && <p className="message__text">{
+                            reactStringReplace(text, /:(.+?):/g, (match, i) => (
+                                <Emoji emoji={match} set='apple' size={20} />
+                            ))}
+                        </p>}
                         {
                             isTyping && <div className="message__typing">
                                 <span></span>
@@ -91,18 +119,24 @@ const Message = ({ avatar, text, date, audio, user, isMe, isReaded, attachments,
                             </div>
                         }
                         {
-                            audio && <MessageAudio audio={audio} />
+                            false && <MessageAudio audio={null} />
                         }
                     </div>}
 
                     {attachments && <div className="message__attachments">
                         {attachments.map((item, index) => (
-                            <div key={index} className="message__attachments-item">
+                            <div
+                                onClick={() => setPreviewImage(item.url)}
+                                key={index}
+                                className="message__attachments-item"
+                            >
+                                <div className="message__attachments-item-overlay">
+                                    <EyeOutlined style={{ color: '#fff', fontSize: 18 }} />
+                                </div>
                                 <img src={item.url} alt={item.filename} />
                             </div>
                         ))}
-                    </div>
-                    }
+                    </div>}
 
                     {date && <span className="message__date">
                         <Time date={date} />
